@@ -20,7 +20,7 @@ def find_other_intervals_which_overlap(tree, interval):
 
 
 # Pre-condition: all arguments are integers, a and b are comparable
-def find_common_region(a1, a2, b1, b2):
+def find_overlap(a1, a2, b1, b2):
     a_begin = min(a1, a2)
     a_end = max(a1, a2)
     b_begin = min(b1, b2)
