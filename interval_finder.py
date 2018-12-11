@@ -33,54 +33,6 @@ def find_common_region(a1, a2, b1, b2):
     return common_begin, common_end
 
 
-
-
-
-
-
-
-def get_common_intervals_by_userid(datetime_tree):
-    interval_dict = {} # hashes a set of common intervals with user_id
-    for interval in datetime_tree:
-        # redundant checking
-        ranges_with_overlap = datetime_tree.search(interval.begin, interval.end)  # returns a set
-        ranges_with_overlap.remove(interval)
-        # the set contains the queried interval as well, so remove that interval as we are only interested in the other
-        # intervals that overlap with the queried interval
-
-        common_intervals = set()
-        for range in ranges_with_overlap:
-            common_intervals.add(find_common_region(range.begin, range.end, interval.begin, interval.end))
-
-            # data is user_id in this case
-            if interval.data in interval_dict:
-                # can be optimised
-                tmp_set = interval_dict.get(interval.data)
-                tmp_set.update(common_intervals)
-                interval_dict[interval.data] = tmp_set
-            else:
-                interval_dict[interval.data] = common_intervals
-    return interval_dict
-
-def get_userids_by_common_interval(userid_intervals_dict):
-    interval_userids_dict = dict()
-    for userid, interval_set in userid_intervals_dict.items():
-        for interval in interval_set:
-            if interval not in interval_userids_dict: #create new key-value pair in new dict
-                tmp_set = set()
-                tmp_set.add(userid)
-                interval_userids_dict[interval] = tmp_set
-            else:
-                tmp_set = interval_userids_dict.get(interval)
-                tmp_set.add(userid)
-    return interval_userids_dict
-
-def get_common_intervals(intervals):
-    datetime_tree = IntervalTree(intervals)
-    userid_intervals_dict = get_common_intervals_by_userid(datetime_tree)
-    final_dict = get_userids_by_common_interval(userid_intervals_dict)
-    return final_dict
-
 def print_common_intervals(tup_set_dict):
     print("available common datetime intervals:\n")
     # tup is the tuple representing the common interval, userid_set is set of the user data
