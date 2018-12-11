@@ -1,22 +1,8 @@
 from datetime import datetime as dt
 from intervaltree import Interval, IntervalTree
 
-#sample data
-datetime_list = [
-    # first and second parameters: begin and end of range. Last parameter: userID
-    Interval(dt(year=2018, month=6, day=1, hour=0), dt(year=2018, month=6, day=2, hour=10), "aaron"),
-    Interval(dt(year=2018, month=7, day=3, hour=7), dt(year=2018, month=7, day=5, hour=10), "aaron"),
-    Interval(dt(year=2018, month=6, day=1, hour=5), dt(year=2018, month=6, day=2, hour=10), "tobu"),
-    Interval(dt(year=2018, month=6, day=3, hour=2), dt(year=2018, month=6, day=3, hour=18), "tohbu"),
-    Interval(dt(year=2018, month=6, day=3, hour=2), dt(year=2018, month=6, day=3, hour=18), "bala"),
-    Interval(dt(year=2018, month=6, day=3, hour=2), dt(year=2018, month=6, day=3, hour=10), "malak"),
-    Interval(dt(year=2018, month=7, day=3, hour=7), dt(year=2018, month=7, day=5, hour=18), "halimah")
-]
 
 def find_common_region(a1, a2, b1, b2):
-    # pre-condition: a and b are comparable
-    # a and b have an overlap
-    # take care of cases where intervals are presented in inverted order:
     a_begin = min(a1, a2)
     a_end = max(a1, a2)
     b_begin = min(b1, b2)
@@ -29,26 +15,10 @@ def find_common_region(a1, a2, b1, b2):
     return common_begin, common_end
 
 
-#####
-dt_tree = IntervalTree(datetime_list)
-results = set()
 
 
-for interval in dt_tree:
-    ranges_with_overlap = dt_tree.search(interval.begin, interval.end)  # returns a set
-    ranges_with_overlap.remove(interval)
-    dt_tree.remove(interval)
 
-dt_tree
 
-for interval in dt_tree:
-    # redundant checking
-    ranges_with_overlap = dt_tree.search(interval.begin, interval.end)  # returns a set
-    ranges_with_overlap.remove(interval)
-    # the set contains the queried interval as well, so remove that interval as we are only interested in the other
-    # intervals that overlap with the queried interval
-    results.update(ranges_with_overlap)
-#####
 
 
 def get_common_intervals_by_userid(datetime_tree):
