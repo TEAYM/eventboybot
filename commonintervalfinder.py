@@ -1,6 +1,14 @@
 from datetime import datetime as dt
 from intervaltree import Interval, IntervalTree
 
+# Input: An list of Intervals
+# Output: A dictionary (key: user_id, value: intervals)
+def find_all_common_intervals(interval_list):
+    interval_tree = IntervalTree(interval_list)
+    for interval in interval_tree.items(): # create a copy of the tree to iterate over
+        overlapping_intervals = find_other_intervals_which_overlap(interval_tree, interval)
+        
+
 
 # Input: An IntervalTree and an Interval in the tree
 # Output: A set containing all other Intervals in the IntervalTree that intersect with the given Interval
