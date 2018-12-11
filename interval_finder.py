@@ -10,13 +10,13 @@ def find_all_common_intervals(interval_list):
         
 
 
-# Input: An IntervalTree and an Interval in the tree
-# Output: A set containing all other Intervals in the IntervalTree that intersect with the given Interval
+# Input: An IntervalTree and an Interval in the IntervalTree
+# Output: A set containing all other Intervals in the IntervalTree that intersect with the given
+#  Interval
 def find_other_intervals_which_overlap(tree, interval):
-    result = tree.search(interval.begin, interval.end) # finds all intervals that interesect, including itself
-    result = result.remove(interval)
-    tree.remove(interval) # if we can put this at the front, second line is redundant
-
+    tree.remove(interval)
+    result = tree.search(interval.begin, interval.end) # returns a set
+    return result
 
 
 # Pre-condition: all arguments are integers, a and b are comparable
