@@ -2,12 +2,15 @@ from datetime import datetime as dt
 from intervaltree import Interval, IntervalTree
 
 # Input: An list of Intervals
-# Output: A dictionary (key: user_id, value: intervals)
+# Output: A dictionary (key: overlap, value: set of user_ids which share the overlap)
 def find_all_common_intervals(interval_list):
+    overlap_dict = dict()
     interval_tree = IntervalTree(interval_list)
     for interval in interval_tree.items(): # create a copy of the tree to iterate over
-        overlapping_intervals = find_other_intervals_which_overlap(interval_tree, interval)
-        
+        other_intervals_that_overlap = find_other_intervals_which_overlap(interval_tree, interval)
+        for other_interval in other_intervals_that_overlap:
+            add_overlap_to_dict(interval, other_interval, overlap_dict)
+    return overlap_dict
 
 
 # Input: An IntervalTree and an Interval in the IntervalTree
