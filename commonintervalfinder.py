@@ -2,6 +2,12 @@ from datetime import datetime as dt
 from intervaltree import Interval, IntervalTree
 
 
+# Input: An IntervalTree and an Interval in the tree
+# Output: A set containing all other Intervals in the IntervalTree that intersect with the given Interval
+def find_other_intervals_which_overlap(tree, interval):
+    result = tree.search(interval.begin, interval.end) # finds all intervals that interesect, including itself
+    result = result.remove(interval)
+    tree.remove(interval) # if we can put this at the front, second line is redundant
 def find_common_region(a1, a2, b1, b2):
     a_begin = min(a1, a2)
     a_end = max(a1, a2)
