@@ -1,8 +1,8 @@
 # eventboybot
 
 main logic:
-1. webhook triggered
-2. "update" json object is passed to lambda handler
+1. webhook triggered by telegram bot when bot receives message
+2. an Update json object is passed to lambda handler by bot via AWS API gateway
 3. lambda handler checks for chatid
 4. lambda handler checks for user state, from db, based on chatid
 5. based on state and input (command and arguments extracted from 'update' object), execute the corresponding handler
